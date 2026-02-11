@@ -17,7 +17,7 @@ class DataIngestionConfing:
 
 class DataIngestion:
     def __init__(self):
-        self.ingestion_config = DataIngestionConfing()
+        self.ingestion_config = DataIngestionConfig()
 
     def initiate_data_initiate(self):
         logging.info("Entered the data Ingestion methods and components")
