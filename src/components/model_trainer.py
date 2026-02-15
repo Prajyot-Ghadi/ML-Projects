@@ -47,10 +47,41 @@ class ModelTrainer:
                 "Decision Tree": DecisionTreeRegressor(),
                 "Gradient Boosting": GradientBoostingRegressor(),
                 "Linear Regression": LinearRegression(),
-                "K - Neighbors": KNeighborsRegressor(),
+                "K-Neighbors": KNeighborsRegressor(),
                 "XGB": XGBRegressor(),
                 "CatBoost": CatBoostRegressor(verbose=False),
                 "AdaBoost": AdaBoostRegressor(),
+            }
+            params = {
+                "Random Forest": {"n_estimators": [8, 16, 32, 64, 128]},
+                "Decision Tree": {
+                    "criterion": [
+                        "squared_error",
+                        "friedman_mse",
+                        "absolute_error",
+                        "poisson",
+                    ]
+                },
+                "Gradient Boosting": {
+                    "learning_rate": [0.1, 0.01, 0.05],
+                    "subsample": [0.6, 0.8, 0.9],
+                    "n_estimators": [16, 32, 64],
+                },
+                "Linear Regression": {},
+                "K-Neighbors": {"n_neighbors": [3, 5, 7]},
+                "XGB": {
+                    "learning_rate": [0.1, 0.01],
+                    "n_estimators": [16, 32, 64],
+                },
+                "CatBoost": {
+                    "depth": [6, 8],
+                    "learning_rate": [0.01, 0.1],
+                    "iterations": [50, 100],
+                },
+                "AdaBoost": {
+                    "learning_rate": [0.1, 0.01],
+                    "n_estimators": [16, 32, 64],
+                },
             }
 
             models_report: dict = evaluate_models(
@@ -59,6 +90,7 @@ class ModelTrainer:
                 X_test=X_test,
                 y_test=y_test,
                 models=models,
+                param=params,
             )
 
             best_model_score = max(models_report.values())
